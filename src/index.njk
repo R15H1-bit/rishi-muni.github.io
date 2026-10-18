@@ -1,0 +1,49 @@
+---
+layout: base.njk
+bodyClass: home
+---
+<section class="hero">
+  <div class="hero__text">
+    <h1 class="hero__name" style="--len: {{ site.name | longestWord }}">{{ site.name }}</h1>
+    <p class="hero__statement">{{ site.statement }}</p>
+    <p class="hero__actions">
+      <a class="button" href="#work">See the work</a>
+      <a class="button button--quiet" href="mailto:{{ site.email }}">Email me</a>
+    </p>
+  </div>
+  <figure class="hero__plot">
+    <canvas id="phase" width="560" height="560" aria-label="Phase portrait of a forced Duffing oscillator, drawn as a looping orange trajectory"></canvas>
+    <figcaption>Forced Duffing oscillator, position against velocity.</figcaption>
+  </figure>
+</section>
+
+<div id="work" class="work">
+{% for d in site.disciplines %}
+  {% set items = collections.projects | byDiscipline(d.name) %}
+  {% if items.length %}
+  <section class="discipline" aria-labelledby="d{{ loop.index }}">
+    <header class="discipline__head">
+      <h2 id="d{{ loop.index }}">{{ d.name }}</h2>
+      <p>{{ d.blurb }}</p>
+    </header>
+    <ol class="projects" role="list">
+      {% for p in items %}
+      <li>
+        <a class="project-row" href="{{ p.url }}">
+          <span class="thumb">
+            {% if p.data.cover %}<img src="{{ p.url }}{{ p.data.cover }}" alt="" loading="lazy">
+            {% else %}<span class="thumb__empty" aria-hidden="true">{{ p.data.short or p.data.title | truncate(2, true, "") }}</span>{% endif %}
+          </span>
+          <span class="project-row__text">
+            <span class="project-row__title">{{ p.data.title }}</span>
+            <span class="project-row__summary">{{ p.data.summary }}</span>
+            <span class="project-row__meta">{{ p.data.timeline }}{% if p.data.status %}<span class="status">{{ p.data.status }}</span>{% endif %}</span>
+          </span>
+        </a>
+      </li>
+      {% endfor %}
+    </ol>
+  </section>
+  {% endif %}
+{% endfor %}
+</div>

@@ -1,0 +1,49 @@
+---
+layout: base.njk
+bodyClass: project
+---
+{% set all = collections.projects %}
+{% set idx = -1 %}
+{% for p in all %}{% if p.url == page.url %}{% set idx = loop.index0 %}{% endif %}{% endfor %}
+
+<article class="project">
+  <header class="project__head">
+    <p class="project__discipline"><a href="/#work">{{ discipline }}</a></p>
+    <h1>{{ title }}</h1>
+    <p class="project__summary">{{ summary }}</p>
+
+    <dl class="titleblock">
+      {% if role %}<div><dt>Role</dt><dd>{{ role }}</dd></div>{% endif %}
+      {% if team %}<div><dt>Team</dt><dd>{{ team }}</dd></div>{% endif %}
+      {% if timeline %}<div><dt>Timeline</dt><dd>{{ timeline }}</dd></div>{% endif %}
+      {% if status %}<div><dt>Status</dt><dd>{{ status }}</dd></div>{% endif %}
+      {% if tools %}<div class="titleblock__wide"><dt>Tools</dt><dd>{{ tools | join(", ") }}</dd></div>{% endif %}
+    </dl>
+  </header>
+
+  {% if cover %}
+  <figure class="project__cover">
+    <a class="zoom" href="{{ cover }}"><img src="{{ cover }}" alt="{{ cover_alt or title }}"></a>
+    {% if cover_caption %}<figcaption>{{ cover_caption }}</figcaption>{% endif %}
+  </figure>
+  {% endif %}
+
+  <div class="prose">
+    {{ content | safe }}
+  </div>
+
+  {% if links %}
+  <ul class="project__links" role="list">
+    {% for l in links %}<li><a class="button button--quiet" href="{{ l.url }}">{{ l.label }}</a></li>{% endfor %}
+  </ul>
+  {% endif %}
+</article>
+
+<nav class="pager" aria-label="More projects">
+  {% if idx > 0 %}{% set prev = all[idx - 1] %}
+  <a class="pager__prev" href="{{ prev.url }}"><span>Previous</span>{{ prev.data.title }}</a>
+  {% endif %}
+  {% if idx >= 0 and idx < all.length - 1 %}{% set next = all[idx + 1] %}
+  <a class="pager__next" href="{{ next.url }}"><span>Next</span>{{ next.data.title }}</a>
+  {% endif %}
+</nav>

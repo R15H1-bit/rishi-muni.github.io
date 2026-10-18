@@ -1,0 +1,16 @@
+{
+  "name": "Rishi",
+  "title": "Rishi — Engineering Portfolio",
+  "statement": "Aerospace engineering at Georgia Tech. I build rocket hardware and write the dynamics and control code that tells it what to do.",
+  "about_short": "Undergraduate aerospace engineer working on solid-motor design, composite casings, injectors, and nonlinear dynamics.",
+  "email": "you@example.com",
+  "links": [
+    { "label": "GitHub", "url": "https://github.com/your-username" },
+    { "label": "LinkedIn", "url": "https://www.linkedin.com/in/your-handle" }
+  ],
+  "resume": "/files/resume.pdf",
+  "disciplines": [
+    { "name": "Propulsion & structures", "blurb": "Motor sizing, composite casings and injector design." },
+    { "name": "Dynamics & control", "blurb": "Trajectory optimization, underactuated systems and bifurcation analysis." }
+  ]
+}
